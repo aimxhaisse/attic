@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 #
 # s. rannou <mxs@sbrk.org>
@@ -88,9 +87,22 @@ function setmisc() {
     fi
 }
 
+# emacs
+function setemacs() {
+    info "Setting emacs"
+    if [ ! -L ~/elisp ]
+    then	
+	local from=$(pwd)/elisp
+	local to=~/elisp
+	ln -s $from $to || error "can't link $from to $to"
+	echo "linked $from to $to"
+    fi
+}
+
 # let's go
 doc
 checkdeps || error "missing dep"
 setscripts
 setconfs
 setmisc
+setemacs
