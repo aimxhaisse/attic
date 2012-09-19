@@ -1,0 +1,28 @@
+#!/bin/bash
+# s. rannou <mxs@sbrk.org>
+#
+# A simple script to manage passwords
+
+if [ $# -lt 1 ]; then
+    echo "usage: $0 [ edit | view | grep ]"
+    exit
+fi
+
+case $1 in
+    "edit")
+        gpg --output ~/.pw --decrypt ~/.pw.gpg
+        emacs ~/.pw
+        gpg --encrypt --recipient mxs@sbrk.org ~/.pw
+        rm -f ~/.pw
+        ;;
+    "view")
+        gpg --decrypt ~/.pw.gpg | less
+        ;;
+    "grep")
+        if [ $# -ne 2 ]; then
+            echo "usage: $0 grep pattern"
+            exit
+        fi
+        gpg --decrypt ~/.pw.gpg | grep $2
+        ;;
+esac
