@@ -1,0 +1,11 @@
+;; -*-lisp-*-
+;;
+;; s. rannou <mxs@sbrk.org>
+;;
+;; stumpwm's configuration file
+
+(in-package :stumpwm)
+
+;; border color of windows
+(set-focus-color "palegreen3")
+(set-unfocus-color "black")

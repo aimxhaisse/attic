@@ -1,29 +1,30 @@
+
 #!/usr/bin/env bash
 #
 # s. rannou <mxs@sbrk.org>
 #
-# A script to install a new working environment with configurations
-# Could have been a package but I might need this on different distribs
+# A script to install a new working env with configs, targets desktop;
+# could have been a package but I might need this on different distribs.
 
-# raise an error
+# raises an error
 function error() {
     echo "error: $1"
     exit 1
 }
 
-# print an info
+# prints an info
 function info() {
     echo "$1"
 }
 
-# print all deps
+# prints all deps
 function doc() {
     echo "these are the deps required by the script:"
     echo -e "\tgnupg (requuired by pw)"
     echo -e "\tstumpwm (required by .xinitrc and scripts/stumpwm)"
 }
 
-# check that deps are installed or already set
+# checks that deps are installed or already set
 function checkdeps() {
     info "Checking deps..."
     for bindep in gpg fetchmail
@@ -34,32 +35,62 @@ function checkdeps() {
 	then
 	    error "missing dep found: $bindep"
 	else
-	    einfo "$bindep found"
+	    info "$bindep found"
 	fi
     done
 }
  
-# link all scripts in ~/bin
+# links all scripts in ~/bin
 function setscripts() {
     info "Setting scripts"
     if [ ! -d ~/bin ]
     then
 	mkdir -p ~/bin || error "can't create ~/bin"
     fi
-    for f in scripts/*
+    # use find to get dotfiles
+    for f in $(find scripts -type f)
     do
 	local from=$(pwd)/$f
 	local to=~/bin/$(basename $f)
 	if [ ! -L $to ]
 	then
 	    ln -s $from $to || error "can't link $from to $to"
-	    echo "added $f to ~/bin"
+	    echo "linked $from to $to"
 	fi
     done
 }
 
+# links all confs in ~/
+function setconfs() {
+    info "Settings configs"
+    # use find to get dotfiles
+    for c in $(find confs -type f)
+    do
+	local from=$(pwd)/$c
+	local to=~/$(basename $c)
+	if [ ! -L $to ]
+	then
+	    ln -s $from $to || error "can't link $from to $to"
+	    echo "linked $from to $to"
+	fi
+    done
+}
+
+# misc
+function setmisc() {
+    info "Setting misc" 
+    if [ ! -L ~/misc ]
+    then
+	local from=$(pwd)/misc
+	local to=~/misc
+	ln -s $from $to || error "can't link $from to $to"
+	echo "linked $from to $to"
+    fi
+}
+
 # let's go
 doc
-countdown 5
 checkdeps || error "missing dep"
 setscripts
+setconfs
+setmisc
