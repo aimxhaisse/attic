@@ -7,6 +7,7 @@
 (setq-default truncate-lines t)         ;; truncate long lines
 (setq column-number-mode t)             ;; column number
 (display-time-mode t)			;; time
+(setq vc-follow-symlinks t)		;; don't ask to edit symlinked files
 (set-language-environment "UTF-8")
 (setq debug-on-error t)
 

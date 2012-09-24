@@ -13,6 +13,12 @@
 ;; start in stumpwm's package
 (setf *default-package* :stumpwm)
 
+;; be verbose
+(setf *debug-level* 10)
+(setf *debug-stream* (open "/tmp/mxs-stumpwm.log"
+			   :direction :output
+			   :if-exists :supersede))
+
 ;; click to focus
 (setf *mouse-focus-policy* :click)
 
@@ -37,23 +43,40 @@
   (setf *random-state* (make-random-state t))
   (nth (random (length quotes)) quotes))
 
-;; commands
-(defun run-in-term (title cmd)
-  (run-or-raise
-   (concatenate 'string "urxvt -title " title " -e " cmd)
-   `(:title ,title)))
+;; run a program in a term
+(defun run-in-term (cmd props)
+  (run-or-raise (concatenate 'string "urxvt -e " cmd) props))
 
+;; commands
 (defcommand urxvt () ()
 	    "urxvt"
-	    (run-or-raise "urxvt" '(:instance urxvt)))
+	    (run-shell-command "urxvt"))
 
 (defcommand conkeror () ()
 	    "conkeror"
-	    (run-or-raise "conkeror" '(:class "Firefox")))
+	    (gselect (find-group (current-screen) "web"))
+	    (run-or-raise "conkeror" '(:instance "conkeror")))
 
 (defcommand ncmpcpp () ()
 	    "ncmpcpp"
-	    (run-in-term "ncmpcpp" "ncmpcpp"))
+	    (gselect (find-group (current-screen) "misc"))
+ 	    (run-in-term "ncmpcpp" `(:instance "ncmpcpp")))
+
+(defcommand alsamixer () ()
+	    "alsamixer"
+	    (gselect (find-group (current-screen) "misc"))
+ 	    (run-in-term "alsamixer" `(:instance "alsamixer")))
+
+(defcommand mutt () ()
+	    "mutt"
+	    (gselect (find-group (current-screen) "misc"))
+ 	    (run-in-term "mutt" `(:instance "mutt")))
+
+(defcommand irssi () ()
+	    "irssi"
+	    (gselect (find-group (current-screen) "sbrk"))
+	    ;; somehow tmux needs the TERM set to xterm, not urxvt
+ 	    (run-in-term "bash -c 'TERM=xterm ssh sbrk.org -t tmux a'" `(:instance "irssi")))
 
 ;; shortcuts
 (define-key *root-map* (kbd "c") "urxvt")

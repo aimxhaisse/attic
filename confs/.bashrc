@@ -11,3 +11,4 @@ alias l='ls -l'
 alias ll='ls -la'
 
 export PATH="$PATH:$HOME/bin"
+export TERM="xterm"

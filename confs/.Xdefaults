@@ -6,16 +6,6 @@
 urxvt*foreground: #d0d0d0
 urxvt*background: #111111
 
-! 0=black 1=red 2=green 3=yellow 4=blue 5=purple 6=cyan 7=white
-urxvt*color0: #6e6e6e
-urxvt*color1: #ec8c7e
-urxvt*color2: #b8e98b
-urxvt*color3: #efeceb
-urxvt*color4: #acceec
-urxvt*color5: #ec99ee
-urxvt*color6: #ccceef
-urxvt*color7: #d0d0d0
-
 ! misc
 urxvt*scrollBar: false
-urxvt*font: 9x15
+urxvt*font: xft:Terminus:autohint=true:antialias=true:pixelsize=14

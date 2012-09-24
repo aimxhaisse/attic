@@ -16,7 +16,6 @@
      (normal-top-level-add-subdirs-to-load-path))))
 
 (my-load-paths)
-
 (require 'config-org)
 (require 'config-misc)
 (require 'config-httpd)
