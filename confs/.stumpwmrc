@@ -43,6 +43,10 @@
    (concatenate 'string "urxvt -title " title " -e " cmd)
    `(:title ,title)))
 
+(defcommand urxvt () ()
+	    "urxvt"
+	    (run-or-raise "urxvt" '(:instance urxvt)))
+
 (defcommand conkeror () ()
 	    "conkeror"
 	    (run-or-raise "conkeror" '(:class "Firefox")))
@@ -50,6 +54,9 @@
 (defcommand ncmpcpp () ()
 	    "ncmpcpp"
 	    (run-in-term "ncmpcpp" "ncmpcpp"))
+
+;; shortcuts
+(define-key *root-map* (kbd "c") "urxvt")
 
 ;; we are done, let zoidberg talk
 (setf *startup-message* (get-random-quote *futurama-quotes*))
