@@ -9,3 +9,47 @@
 ;; border color of windows
 (set-focus-color "palegreen3")
 (set-unfocus-color "black")
+
+;; start in stumpwm's package
+(setf *default-package* :stumpwm)
+
+;; click to focus
+(setf *mouse-focus-policy* :click)
+
+;; run-or-raise searches through screens and groups
+(setf *run-or-raise-all-groups* t)
+(setf *run-or-raise-all-screens* t)
+
+;; groups
+(grename "misc")
+(mapc #'gnewbg '("sbrk" "web" "code"))
+
+;; few quotes from futurama
+(defparameter *futurama-quotes* '("IN COLOR"
+				  "PROUDLY MADE ON EARTH"
+				  "LIVE FROM OMICRON PERSEI 8"
+				  "MADE FROM MEAT BY-PRODUCTS"
+				  "NOT Y3K COMPLIANT"))
+
+;; returns a random quote
+(defun get-random-quote (quotes)
+  "returns a random quote from Futurama"
+  (setf *random-state* (make-random-state t))
+  (nth (random (length quotes)) quotes))
+
+;; commands
+(defun run-in-term (title cmd)
+  (run-or-raise
+   (concatenate 'string "urxvt -title " title " -e " cmd)
+   `(:title ,title)))
+
+(defcommand conkeror () ()
+	    "conkeror"
+	    (run-or-raise "conkeror" '(:class "Firefox")))
+
+(defcommand ncmpcpp () ()
+	    "ncmpcpp"
+	    (run-in-term "ncmpcpp" "ncmpcpp"))
+
+;; we are done, let zoidberg talk
+(setf *startup-message* (get-random-quote *futurama-quotes*))
