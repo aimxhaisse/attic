@@ -8,6 +8,7 @@ set hostname="zoidberg"
 set charset="UTF-8"
 set editor="emacs"
 set pager="emacs"
+color normal white black
 
 # maildir, http://www.elho.net/mutt/maildir/
 set mbox_type=Maildir

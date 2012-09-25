@@ -76,10 +76,24 @@
 	    "irssi"
 	    (gselect (find-group (current-screen) "sbrk"))
 	    ;; somehow tmux needs the TERM set to xterm, not urxvt
- 	    (run-in-term "bash -c 'TERM=xterm ssh sbrk.org -t tmux a'" `(:instance "irssi")))
+ 	    (run-in-term "bash -c 'TERM=xterm ssh sbrk.org -t LANG=fr_FR.utf8 tmux a'" `(:instance "irssi")))
+
+(defcommand kb-on () ()
+	    "kb-on"
+	    (run-shell-command "setxkbmap -variant intl")
+	    (message "Accents On!"))
+
+(defcommand kb-off () ()
+	    "kb-off"
+	    (run-shell-command "setxkbmap -layout us")
+	    (message "Accents Off!"))
 
 ;; shortcuts
 (define-key *root-map* (kbd "c") "urxvt")
+(define-key *root-map* (kbd "/") "kb-on")
+(define-key *root-map* (kbd "\\") "kb-off")
+
+(kb-on)
 
 ;; we are done, let zoidberg talk
 (setf *startup-message* (get-random-quote *futurama-quotes*))

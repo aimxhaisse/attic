@@ -8,4 +8,4 @@ urxvt*background: #111111
 
 ! misc
 urxvt*scrollBar: false
-urxvt*font: xft:Terminus:autohint=true:antialias=true:pixelsize=14
+urxvt*font: xft:Inconsolata:autohint=true:antialias=true:pixelsize=14
