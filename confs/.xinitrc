@@ -2,4 +2,4 @@
 #
 # X's init script
 
-exec bin/stumpwm
+exec wmii

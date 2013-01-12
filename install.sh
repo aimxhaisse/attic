@@ -20,14 +20,13 @@ function info() {
 function doc() {
     echo "these are the deps required by the script:"
     echo -e "\tgnupg (requuired by pw)"
-    echo -e "\tstumpwm (required by .xinitrc and scripts/stumpwm)"
     echo -e "\temacs"
 }
 
 # checks that deps are installed or already set
 function checkdeps() {
     info "Checking deps..."
-    for bindep in gpg fetchmail emacs mutt
+    for bindep in gpg emacs
     do
 	which $bindep > /dev/null
 	local ret=$?

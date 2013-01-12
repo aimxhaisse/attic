@@ -3,9 +3,11 @@
 ! X settings
 
 ! colors
-urxvt*foreground: #d0d0d0
-urxvt*background: #111111
+*foreground: #d0d0d0
+*background: #111111
 
 ! misc
-urxvt*scrollBar: false
-urxvt*font: xft:Inconsolata:autohint=true:antialias=true:pixelsize=14
+*scrollBar: false
+*metaSendsEscape: true
+*faceName: terminus
+*faceSize: 10

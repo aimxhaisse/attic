@@ -1,5 +1,4 @@
 ;;; org-atom.el --- Atom export for Org-mode
-
 ;; Copyright (C) 2010 by David Maus
 
 ;; Author: David Maus <dmaus [at] ictsoc.de>
@@ -145,11 +144,13 @@ When PUB-DIR is set, use this as the publishing directory."
 	 (body-only (or body-only (plist-get opt-plist :body-only)))
 	 (atom-syndication-construct-text-html-function 'identity)
 	 atom-content-url atom-try-git entries feed filebuf)
+
     ;; process #+FEED_OPTIONS line
     (when atom-options
       (let ((org-export-plist-vars org-atom-export-plist-vars))
 	(setq opt-plist
 	      (org-export-add-options-to-plist opt-plist atom-options))))
+
     (setq atom-content-url (or (plist-get opt-plist :feed-content-url)
 			       (format "%s%s.%s"
 				       (file-name-directory atom-url)
