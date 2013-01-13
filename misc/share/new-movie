@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+
+# author: s. rannou <mxs@sbrk.org>
+
+# edit these to your needs
+output=~/mnt/media-html
+movie_template="movie-template.html"
+index_template="index-template.html"
+input=$1
+target=$2
+directory="${output}/${target}"
+destination="${directory}/${target}.webm"
+
+mkdir -p $directory
+
+function ok {
+    echo -e "\033[0;32;49m$@\\033[0m"
+    return 0
+}
+
+function usage {
+    echo "usage: $0 <input> <name>"
+    exit -1
+}
+
+function convert {
+    if [ -f "$destination" ]
+    then
+	echo "$destination already exists, skipped"
+	return
+    fi
+    ffmpeg -i "$input" -threads 4 -f webm "$destination"
+}
+
+function title {
+    echo $target
+}
+
+function video {
+    echo "${target}.webm"
+}
+
+function movie {
+    cp "$movie_template" "${directory}/index.html"
+    back=$IFS
+    IFS=$'\n'
+    template=$(cat "${directory}/index.html")
+    vars=$(echo "$template" | grep -o '{[^{]*}' | tr -d '{' | tr -d '}' | sort | uniq | grep -v body)
+    for var in $vars
+    do
+        value=$(eval $var)
+        template=$(echo -e "${template//{$var\}/$value}")
+    done
+    result=$(echo -e "${template//{body\}/$result}")
+    echo "$result" > "${directory}/index.html"
+}
+
+function list-movies {
+    echo "<ul>"
+    for file in $output/*
+    do
+	if [ -d "$file" ]
+	then
+	    name=$(basename "$file")
+	    if [ "$name" != "css" -a "$name" != "img" -a "$name" != "." -a "$name" != ".." ]
+	    then
+		echo "<li><a href=\"/${name}\">${name}</a></li>"
+	    fi
+	fi
+    done
+    echo "</ul>"
+}
+
+function index {
+    cp -r img css "${output}"
+    cp "$index_template" "${output}/index.html"
+    back=$IFS
+    IFS=$'\n'
+    template=$(cat "${output}/index.html")
+    vars=$(echo "$template" | grep -o '{[^{]*}' | tr -d '{' | tr -d '}' | sort | uniq | grep -v body)
+    for var in $vars
+    do
+        value=$(eval $var)
+	echo $value
+        template=$(echo -e "${template//{$var\}/$value}")
+    done
+    result=$(echo -e "${template//{body\}/$result}")
+    echo "$result" > "${output}/index.html"
+}
+
+# main
+if [ $# -lt 2 ]
+then
+    usage
+fi
+
+if ! [ -f "$input" ]
+then
+    usage
+fi
+
+if ! [ -f "$movie_template" ]
+then
+    echo "can't find template <${movie_template}>"
+    exit -1
+fi
+
+if ! [ -f "$index_template" ]
+then
+    echo "can't find template <${index_template}>"
+    exit -1
+fi
+
+ok "converting movie"
+convert
+ok "done"
+ok "generating movie page"
+movie
+ok "done"
+ok "refreshing the index page"
+index
+ok "done"

@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <link href="/css/kaneda.css" rel="stylesheet" style="text/css"/>
+    <title>watch {title}</title>
+  </head>
+  <body>
+
+    <div id="preamble">
+      <div id="header"><ul id="menu">
+	  <li class="menu-item"><a href="http://mxs.sbrk.org/">home</a></li>
+	  <li class="menu-item"><a href="/">bender</a></li>
+	</ul>
+	<a href="/"><img id="dave" src="/img/header.png"/></a></div>
+    </div>
+
+    <div id="content">
+      <h1 class="title">{title}</h1>
+      <div id="outline-container-1" class="outline-2">
+	<video id="media" class="video-js vjs-default-skin" controls width="550" height="320" preload="auto" data-setup="{}">
+	  <source type="video/webm" src="{video}">
+	</video>
+      </div>
+    </div>
+
+    <div id="postamble">
+      <i id="bottom-note">This page was last updated on {date}</i><div id="footer"><hr/><a href="http://sbrk.org">powered by sbrk.org</a></div>
+    </div>
+
+  </body>
+</html>

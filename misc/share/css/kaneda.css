@@ -1,0 +1,149 @@
+/*this/is/a/css/comment 2> /dev/null
+# s. rannou <mxs@sbrk.org>
+#
+# a self modifying css stylesheet ; edit the following variables and
+# run kaneda.css to update it
+
+titles=\#303030
+width=550px
+me=$0
+sed -i "s|\(/\*title\*/\).*|\1color\: ${titles};|" $me
+sed -i "s|\(/\*width\*/\).*|\1width\: ${width};|" $me
+exit
+*/
+
+html {
+    font-size: 100%;
+}
+
+body {
+    /*width*/width: 550px;
+    margin: 0 auto;
+    margin-top: 30px;
+    color: #303030;
+    font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.6em;
+    text-align: justify;    
+}
+
+a {
+    color: #000000;
+}
+
+a img {
+    border: none;
+}
+
+blockquote {
+    padding: 0;
+    margin: 0;
+    padding-left: 20px;
+    border-left: 5px solid #C0C0C0;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    /*title*/color: #303030;
+}
+
+hr {
+  border: 0;
+  height: 3px;
+  background-color: #C0C0C0;
+}
+
+#preamble {
+    /*width*/width: 550px;
+}
+
+#content {
+    /*width*/width: 550px;
+    margin-top: 15px;
+}
+
+#postamble {
+    /*width*/width: 550px;
+    margin-top: 15px;
+}
+
+#dave {
+    border-radius: 5px;
+}
+
+#menu {
+    list-style-type: none;
+}
+
+.menu-item {
+    float: right;
+    margin-left: 10px;
+}
+
+#bottom-note {
+    font-size: small;
+    /*title*/color: #303030;
+}
+
+pre {
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 1.2em;
+    overflow-x: auto;
+}
+
+pre.src {
+    background: #3f3f3f;
+    color: #dcdccc; 
+}
+
+.org-preprocessor {
+    color: #8cd0d3;
+}
+
+.org-preprocessor {
+    color: #8cd0d3;
+}
+
+.org-variable-name {
+    color: #f0dfaf;
+}
+
+.org-string {
+    color: #cc9393;
+}
+
+.org-type {
+    color: #dfdfbf;
+    font-weight: bold;
+}
+
+.org-function-name {
+    color: #8cd0d3;
+    font-weight: bold;
+}
+
+.org-keyword {
+    color: #f0dfaf;
+    font-weight: bold;
+}
+
+.org-comment {
+    color: #7f9f7f;
+}
+
+.org-doc {
+    color: #afd8af;
+}
+
+.org-comment-delimiter {
+    color: #708070;
+}
+
+.org-constant {
+    color: #dca3ac;
+    font-weight:bold;
+}
+
+.org-builtin {
+    color: #7f9f7f;
+}
