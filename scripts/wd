@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+mkdir -p ~/mnt/{media,media-html}
+sshfs bender:/mnt/wd/html ~/mnt/media-html
+sshfs bender:/mnt/wd/ ~/mnt/media

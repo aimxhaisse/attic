@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+mkdir -p ~/mnt/{media,media-html}
+fusermount -u ~/mnt/media
+fusermount -u ~/mnt/media-html
